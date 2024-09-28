@@ -1,0 +1,34 @@
+syntax="proto3";
+
+option go_package= "./proto";
+
+package learn_service;
+
+service LearnService {
+    rpc UnaryCall(NoParam) returns (AckResponse);
+    
+    rpc ServerStreamingCall(NamesList) returns (stream AckResponse);
+
+    rpc ClientStreamingCall(stream UserRequest) returns (MessageList);
+    
+    rpc BiDirectionalStreamingCall(stream UserRequest) returns (stream AckResponse);
+
+}
+
+message NoParam{};
+
+message AckResponse {
+    string message = 1;
+}
+
+message UserRequest {
+    string name = 1;
+}
+
+message NamesList {
+    repeated string name = 1;
+}
+
+message MessageList {
+    repeated string message = 1;
+}
